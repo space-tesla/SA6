@@ -1,0 +1,81 @@
+
+https://www.tinkercad.com/things/b2LuhbVb8db-s6-temperature-notification
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Slip 6b 
+Q2 Write a program to get temperature notification using Arduino. 
+const int hot = 90;     // Hot temperature threshold (F) 
+const int cold = 60;    // Cold temperature threshold (F) 
+// Pin definitions 
+// A2 = Temperature sensor input 
+// 2 = Red LED 
+// 3 = Blue LED 
+// 4 = Green LED 
+void setup() { 
+pinMode(A2, INPUT);    // Sensor pin 
+pinMode(2, OUTPUT);    // Red LED 
+pinMode(3, OUTPUT);    // Blue LED 
+pinMode(4, OUTPUT);    // Green LED 
+Serial.begin(9600);    // Start serial monitor 
+} 
+void loop() { 
+int sensor = analogRead(A2);                    
+float voltage = (sensor / 1024.0) * 5.0;        
+float tempC = (voltage - 0.5) * 100;            
+float tempF = (tempC * 1.8) + 32;               
+Serial.print("temp: "); 
+Serial.print(tempF); 
+// Cold Condition 
+if (tempF < cold) { 
+digitalWrite(2, HIGH);   // Red ON 
+// Read sensor value 
+// Convert to voltage 
+// Convert to Celsius 
+// Convert °C → °F 
+    digitalWrite(3, LOW); 
+    digitalWrite(4, LOW); 
+    Serial.println(" It's Cold."); 
+  } 
+  // Hot Condition 
+  else if (tempF >= hot) { 
+    digitalWrite(2, LOW); 
+    digitalWrite(3, LOW); 
+    digitalWrite(4, HIGH);   // Green ON 
+    Serial.println(" It's Hot."); 
+  } 
+  // Fine Condition 
+  else { 
+    digitalWrite(2, LOW); 
+    digitalWrite(3, HIGH);   // Blue ON 
+    digitalWrite(4, LOW); 
+    Serial.println(" It's Fine."); 
+  } 
+ 
+  delay(400); 
+} 
+ 
+ 
+ 
+Arduino Uno/Genuino  
+Breadboard  
+3 resistors 
+3 RGB LEDs (any color)  
+Temperature Sensor [TMP36] 
